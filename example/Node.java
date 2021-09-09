@@ -17,13 +17,13 @@ public class Node {
     // 递归
     private static Node reverseList1(Node head) {
         Node nextNode = head.next;
-        head.next = null;
-
-        if (nextNode == null) {
+        if (head == null || nextNode == null) {
             return head;
         } else {
+            // 通过递归获取翻转之后链表的 head 节点
             Node endNode = reverseList1(nextNode);
-            endNode.next = head;
+            nextNode.next = head;
+            head.next = null;
             return endNode;
         }
     }
@@ -65,10 +65,10 @@ public class Node {
         for (Node node = head; node != null; node = node.next) {
             System.out.print(node.value);
         }
-        // head = reverseList2(head);
-        // for (Node node = head; node != null; node = node.next) {
-        //     System.out.print(node.value);
-        // }
+        head = reverseList2(head);
+        for (Node node = head; node != null; node = node.next) {
+            System.out.print(node.value);
+        }
     }
 
 }
