@@ -14,7 +14,7 @@ public class Node {
         this.next = next;
     }
 
-    // 递归
+    // 递归方式
     private static Node reverseList1(Node head) {
         Node nextNode = head.next;
         if (head == null || nextNode == null) {
@@ -28,7 +28,7 @@ public class Node {
         }
     }
 
-    // 迭代
+    // 迭代方式
     private static Node reverseList2(Node head) {
 
         Node pre = null;
@@ -53,10 +53,28 @@ public class Node {
         return pre;
     }
 
+    // 判断当前列表是否成环(使用快慢指针方式)
+    private static boolean isCycledList(Node head) {
+        Node fastPointer, slowPointer;
+        fastPointer = slowPointer = head;
+
+        while (fastPointer != null && fastPointer.next != null) {
+            slowPointer = slowPointer.next;
+            fastPointer = fastPointer.next.next;
+
+            if (fastPointer == slowPointer) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public static void main(String[] args) {
         Node third = new Node(5, null);
         Node secend = new Node(3, third);
         Node head = new Node(1, secend);
+
 
         for (Node node = head; node != null; node = node.next) {
             System.out.print(node.value);
@@ -69,6 +87,9 @@ public class Node {
         for (Node node = head; node != null; node = node.next) {
             System.out.print(node.value);
         }
+
+        third.next = head;
+        System.out.println(isCycledList(head));
     }
 
 }
